@@ -1,0 +1,12 @@
+//Push
+
+//Set TargetAssetBundle
+//base_common
+
+Set MultiPackMode
+Set PackIndepend
+Set TargetStreamScene
+
+base
+
+//Pop

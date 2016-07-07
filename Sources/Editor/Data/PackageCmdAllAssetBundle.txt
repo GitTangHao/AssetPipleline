@@ -1,0 +1,48 @@
+Push
+
+//Package ui common script here
+UICommonScripts
+UIFont
+UICommonAnimation
+
+Push
+
+//Package main ui common atlas here
+UIAtlasBG
+UIAtlasButton
+UIAtlasFrame
+UIAtlasHeadicon
+UIAtlasItemicon
+UIAtlasSkillicon
+
+Push
+
+//Package main ui common prefabs here
+UICommon
+
+
+Push
+
+//Package main ui prefabs here
+UIQuestAchieve
+UIBag
+UIBattle
+UIChat
+UIFriend
+UILogin
+UIMainMenu
+UIMecha
+UIMore
+UIPilot
+UIShop
+UITeam
+UIGameCommon
+
+UIPVP
+
+Pop
+Pop
+Pop
+Pop
+
+PackRest

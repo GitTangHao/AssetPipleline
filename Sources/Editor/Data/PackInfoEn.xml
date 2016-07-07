@@ -1,0 +1,76 @@
+<root>
+  <assetbundles>
+    <assetbundle name="ApeKing" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="ApeSoldier" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="base" basePath="/ART/prefab/environment/" packMode="SinglePack" />
+    <assetbundle name="Buff" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="CannonKing" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="CannonSoldier" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="common" basePath="/ART/prefab/environment/" packMode="SinglePack" />
+    <assetbundle name="config" basePath="/Prefabs/UI_EN/" packMode="SinglePack" />
+    <assetbundle name="crystal" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="DogKing" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="DogSoldier" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="Exported" basePath="/Scenes/" packMode="MultiPack" />
+    <assetbundle name="GameTrigger" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="GuardKing" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="HumanKing" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="HumanSoldier" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="island" basePath="/ART/prefab/environment/" packMode="SinglePack" />
+    <assetbundle name="Items" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="notice" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="PlayerSkill" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="PlayerWeaponAndBullet" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="rbt_Comet" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="rbt_Cute" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="rbt_Eagle" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="rbt_Ranger" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="rbt_Saturn" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="rbt_Shadow" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="SlimeSoldier" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="Sound" basePath="/Prefabs/" packMode="MultiPack" />
+    <assetbundle name="SoundPrime" basePath="/Prefabs/" packMode="MultiPack" />
+    <assetbundle name="space" basePath="/ART/prefab/environment/" packMode="SinglePack" />
+    <assetbundle name="table" basePath="/Prefabs/UI_EN/" packMode="SinglePack" />
+    <assetbundle name="TemplarKing" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="TemplarSoldier" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="texture_text" basePath="/Prefabs/UI_EN/" packMode="MultiPack" />
+    <assetbundle name="textures" basePath="/Prefabs/" packMode="MultiPack" />
+    <assetbundle name="ThunderKing" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="ThunderSoldier" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIAnimation" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIAtlasBG" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIAtlasButton" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIAtlasFrame" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIAtlasHeadicon" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIAtlasItemicon" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIAtlasSkillicon" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIBag" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIBattle" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIChat" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UICommon" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UICommonAnimation" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UICommonScripts" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIFont" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIFriend" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIGameCommon" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UILogin" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIMainMenu" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIMecha" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIMore" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIPilot" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIPVP" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIQuestAchieve" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UIShop" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="UITeam" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="vfx" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="WallKing" basePath="/Prefabs/" packMode="SinglePack" />
+    <assetbundle name="WallSoldier" basePath="/Prefabs/" packMode="SinglePack" />
+  </assetbundles>
+  <scenes>
+    <scene name="CutScenes" basePath="/Scenes/GamePlay/Pack/" packMode="SinglePack" />
+    <scene name="Login" basePath="/Scenes/GamePlay/Pack/" packMode="SinglePack" />
+    <scene name="Main" basePath="/Scenes/GamePlay/Pack/" packMode="SinglePack" />
+    <scene name="TempPackFolder" basePath="/" packMode="MultiPack" />
+  </scenes>
+</root>
