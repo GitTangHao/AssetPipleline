@@ -289,24 +289,9 @@ public class ResourceManager
 
         sServerStatue = new ServerSatueInfo();
         sServerStatue.mIsOn = bool.Parse(tDoc.DocumentElement.GetAttribute("IsServerOn"));
-        sServerStatue.mServerNotice = tDoc.DocumentElement.GetAttribute("ServerNotice");
+        sServerStatue.mServerNotice = tDoc.DocumentElement.GetAttribute("ServerNotice" + GlobleDefine.Language);
         sServerStatue.mAppUrl = tDoc.DocumentElement.GetAttribute("AppUrl");
-
-        switch(GlobleDefine.Language)
-        {
-            case ELanguage.SimpleChinese:
-                sServerStatue.mAssetsUrl = tDoc.DocumentElement.GetAttribute("AssetsCNUrl");
-                break;
-            case ELanguage.TraditionalChinese:
-                sServerStatue.mAssetsUrl = tDoc.DocumentElement.GetAttribute("AssetsHKUrl");
-                break;
-            case ELanguage.English:
-                sServerStatue.mAssetsUrl = tDoc.DocumentElement.GetAttribute("AssetsENUrl");
-                break;
-            default:
-                Debug.LogError("Invalid language " + GlobleDefine.Language);
-                yield break;
-        }
+        sServerStatue.mAssetsUrl = tDoc.DocumentElement.GetAttribute("AssetsUrl");
 
         if (!sServerStatue.mIsOn)
         {

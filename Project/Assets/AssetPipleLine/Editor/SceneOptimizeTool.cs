@@ -26,7 +26,7 @@ public class SceneOptimizeTool : EditorWindow
 
     static bool sCopy = true;
 
-    [MenuItem("Custom/SceneOptimizeTool")]
+    [MenuItem("AssetPipleLine/SceneOptimizeTool")]
     static void GetTargetPackageFiles()
     {
         EditorWindow.GetWindowWithRect<SceneOptimizeTool>(new Rect(0, 0, 280, 135), false, "Optimize Tool", true);
@@ -81,6 +81,11 @@ public class SceneOptimizeTool : EditorWindow
 
         if (a_scope == EOptimizeScope.CurrentScene)
         {
+            if (string.IsNullOrEmpty(EditorApplication.currentScene))
+            {
+                Debug.LogError("You didn't open any scene.");
+                return;
+            }
             if (a_copy)
             {
                 string tCopyPath = Path.Combine(sCopyDir, EditorApplication.currentScene.Substring(EditorApplication.currentScene.LastIndexOf("/")));

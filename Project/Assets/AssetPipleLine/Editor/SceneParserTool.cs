@@ -10,7 +10,7 @@ public class SceneParserTool : EditorWindow
     static string[] sSceneFiles = null;
     static bool[] sIsExport = null;
 
-    [MenuItem("Custom/SceneParserTool")]
+    [MenuItem("AssetPipleLine/SceneParserTool")]
     static void OpenSceneParserTool()
     {
         SceneParserData.loadParserSceneInfo();

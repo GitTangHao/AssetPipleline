@@ -18,7 +18,7 @@ public class PackageConfigTool : EditorWindow
     static string[] sAssetFolders = null;
     static string[] sSceneFolders = null;
 
-    [MenuItem("Custom/PackageConfigTool")]
+    [MenuItem("AssetPipleLine/PackageConfigTool")]
     static void OpenPackConfigTool()
     {
         PackageConfigData.LoadPackConfigure();

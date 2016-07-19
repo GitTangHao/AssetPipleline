@@ -9,17 +9,20 @@ using System.Xml;
 public class ServerStatueGenerator : EditorWindow
 {
     static bool sIsServerOn = true;
-    static string sServerNotice;
     static string sAppUrl;
     static string sAssetsUrl = string.Empty;
-    static string sAssetsENUrl = string.Empty;
-    static string sAssetsCNUrl = string.Empty;
-    static string sAssetsHKUrl = string.Empty;
+    static ELanguage sLanguage = ELanguage.English;
+    static Dictionary<ELanguage, string> sServerNotice = new Dictionary<ELanguage, string>();
 
-    [MenuItem("Custom/ServerStatueGenerator")]
+    [MenuItem("AssetPipleLine/ServerStatueGenerator")]
     static void GetTargetPackageFiles()
     {
         EditorWindow.GetWindowWithRect<ServerStatueGenerator>(new Rect(0, 0, 385, 438), false, "Server Statue Generator", true);
+        sServerNotice.Clear();
+        foreach( ELanguage tLang in System.Enum.GetValues(typeof(ELanguage)))
+        {
+            sServerNotice.Add(tLang, string.Empty);
+        }
     }
 
     void OnGUI()
@@ -46,30 +49,13 @@ public class ServerStatueGenerator : EditorWindow
         EditorGUILayout.EndHorizontal();
         sAssetsUrl = EditorGUILayout.TextField(sAssetsUrl, GUILayout.Width(375), GUILayout.Height(16));
 
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Assets EN Url", GUILayout.Width(82), GUILayout.Height(16));
-        EditorGUILayout.SelectableLabel(@"http://aop-android.oss-cn-hangzhou.aliyuncs.com/assets/0.0.0/", GUILayout.Width(285), GUILayout.Height(16));
-        EditorGUILayout.EndHorizontal();
-        sAssetsENUrl = EditorGUILayout.TextField(sAssetsENUrl, GUILayout.Width(375), GUILayout.Height(16));
-
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Assets CN Url", GUILayout.Width(82), GUILayout.Height(16));
-        EditorGUILayout.SelectableLabel(@"http://aop-android.oss-cn-hangzhou.aliyuncs.com/assets/0.0.0/", GUILayout.Width(285), GUILayout.Height(16));
-        EditorGUILayout.EndHorizontal();
-        sAssetsCNUrl = EditorGUILayout.TextField(sAssetsCNUrl, GUILayout.Width(375), GUILayout.Height(16));
-
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Assets HK Url", GUILayout.Width(82), GUILayout.Height(16));
-        EditorGUILayout.SelectableLabel(@"http://aop-android.oss-cn-hangzhou.aliyuncs.com/assets/0.0.0/", GUILayout.Width(285), GUILayout.Height(16));
-        EditorGUILayout.EndHorizontal();
-        sAssetsHKUrl = EditorGUILayout.TextField(sAssetsHKUrl, GUILayout.Width(375), GUILayout.Height(16));
-
         EditorGUILayout.Space();
-
-        EditorGUILayout.LabelField("Server Notice", GUILayout.Width(375), GUILayout.Height(16));
-        sServerNotice = EditorGUILayout.TextField(sServerNotice, GUILayout.Width(375), GUILayout.Height(150));
-
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Server Notice", GUILayout.Width(100), GUILayout.Height(16));
         EditorGUILayout.Space();
+        sLanguage = (ELanguage)EditorGUILayout.EnumPopup(sLanguage, GUILayout.Width(120));
+        EditorGUILayout.EndHorizontal();
+        sServerNotice[sLanguage] = EditorGUILayout.TextField(sServerNotice[sLanguage], GUILayout.Width(375), GUILayout.Height(268));
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.Space();
@@ -91,9 +77,6 @@ public class ServerStatueGenerator : EditorWindow
     void GenerateServerStatue()
     {
         sAssetsUrl = checkUrl(sAssetsUrl);
-        sAssetsENUrl = checkUrl(sAssetsENUrl);
-        sAssetsCNUrl = checkUrl(sAssetsCNUrl);
-        sAssetsHKUrl = checkUrl(sAssetsHKUrl);
 
         XmlDocument tDoc = new XmlDocument();
 
@@ -102,10 +85,11 @@ public class ServerStatueGenerator : EditorWindow
         tRoot.SetAttribute("IsServerOn", sIsServerOn.ToString());
         tRoot.SetAttribute("AppUrl", sAppUrl);
         tRoot.SetAttribute("AssetsUrl", sAssetsUrl);
-        tRoot.SetAttribute("AssetsENUrl", sAssetsENUrl);
-        tRoot.SetAttribute("AssetsCNUrl", sAssetsCNUrl);
-        tRoot.SetAttribute("AssetsHKUrl", sAssetsHKUrl);
-        tRoot.SetAttribute("ServerNotice", sServerNotice);
+        
+        foreach (ELanguage tLang in System.Enum.GetValues(typeof(ELanguage)))
+        {
+            tRoot.SetAttribute("ServerNotice" + tLang.ToString(), sServerNotice[tLang]);
+        }
 
         tDoc.AppendChild(tRoot);
 

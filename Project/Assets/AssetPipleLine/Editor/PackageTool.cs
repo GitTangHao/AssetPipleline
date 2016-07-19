@@ -66,7 +66,7 @@ public class PackageTool : EditorWindow
     static GUIContent[] sServersPopup = new GUIContent[0];
 
 
-    [MenuItem("Custom/PackageTool")]
+    [MenuItem("AssetPipleLine/PackageTool")]
     static void OpenPackTool()
     {
         PackageConfigData.LoadPackConfigure();
