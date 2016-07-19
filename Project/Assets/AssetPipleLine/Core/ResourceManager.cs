@@ -267,12 +267,12 @@ public class ResourceManager
     public static IEnumerator checkServerStatue()
     {
         LogInfo(getInfoText("checkServerStatue"));
-        Debuger.Log(sServeStatueInfoUrl);
+        Debug.Log(sServeStatueInfoUrl);
         WWW www = new WWW(sServeStatueInfoUrl);
         yield return www;
         if (!string.IsNullOrEmpty(www.error))
         {
-            Debuger.LogError("check server statue error " + www.error);
+            Debug.LogError("check server statue error " + www.error);
 
             if (onErrorDelegate != null)
             {
@@ -304,7 +304,7 @@ public class ResourceManager
                 sServerStatue.mAssetsUrl = tDoc.DocumentElement.GetAttribute("AssetsENUrl");
                 break;
             default:
-                Debuger.LogError("Invalid language " + GlobleDefine.Language);
+                Debug.LogError("Invalid language " + GlobleDefine.Language);
                 yield break;
         }
 
@@ -356,7 +356,7 @@ public class ResourceManager
 
         if ( string.IsNullOrEmpty(tAssetMd5Tex) )
 		{
-            Debuger.LogError("load local resource list error! ");
+            Debug.LogError("load local resource list error! ");
             return;
         }
 
@@ -500,7 +500,7 @@ public class ResourceManager
         yield return www;
         if( !string.IsNullOrEmpty(www.error) )
         {
-            Debuger.LogError("load server resource list error " + www.error);
+            Debug.LogError("load server resource list error " + www.error);
 
             if (onErrorDelegate != null)
             {
@@ -728,7 +728,7 @@ public class ResourceManager
         if( e.Error != null)
         {
             sDownloadException = (WebException)e.Error;
-            Debuger.LogError( e.Error.Message );
+            Debug.LogError( e.Error.Message );
             return;
         }
 
@@ -755,7 +755,7 @@ public class ResourceManager
             }
             return false;
         }
-        Debuger.LogWarning(a_assetName + " is not on server.");
+        Debug.LogWarning(a_assetName + " is not on server.");
         return true;
 #endif
     }
@@ -836,7 +836,7 @@ public class ResourceManager
 
         if (tAssetInfo == null)
         {
-            Debuger.LogError("Unable to find asset " + a_assetName);
+            Debug.LogError("Unable to find asset " + a_assetName);
             return null;
         }
 
@@ -859,7 +859,7 @@ public class ResourceManager
 
         if (tAssetInfo == null)
         {
-            Debuger.LogError("Unable to find asset " + a_assetName);
+            Debug.LogError("Unable to find asset " + a_assetName);
             return null;
         }
 
@@ -891,7 +891,7 @@ public class ResourceManager
                         }
                         else
                         {
-                            Debuger.LogError("Failed to load file : " + sStreamAssetURL + a_assetName);
+                            Debug.LogError("Failed to load file : " + sStreamAssetURL + a_assetName);
                             return null;
                         }
 #endif
@@ -922,7 +922,7 @@ public class ResourceManager
                 return;
             }
         }
-        Debuger.LogError("Unable to find asset family " + a_family);
+        Debug.LogError("Unable to find asset family " + a_family);
     }
 
     public static void unloadAsset( string a_assetName, bool a_safeUnload = false )
@@ -931,7 +931,7 @@ public class ResourceManager
 
         if (tAssetInfo == null)
         {
-            Debuger.LogError("Unable to find asset bundle " + a_assetName);
+            Debug.LogError("Unable to find asset bundle " + a_assetName);
             return;
         }
 
@@ -1034,9 +1034,9 @@ public class ResourceManager
 
     static EAppUpdateInfo getAppUpdateInfo(string a_loaclVer, string a_serverVer)
     {
-        int[] tLocalVer = Tools.toIntArray(a_loaclVer, '.');
-        int[] tServerVer = Tools.toIntArray(a_serverVer, '.');
-        
+        int[] tLocalVer = UnityToolKit.toIntArray(a_loaclVer, '.');
+        int[] tServerVer = UnityToolKit.toIntArray(a_serverVer, '.');
+
         EAppUpdateInfo tAppUpdateInfo = EAppUpdateInfo.Latest;
         
         if (tLocalVer[0] < tServerVer[0])
@@ -1141,7 +1141,7 @@ public class ResourceManager
 
     static void LogInfo(string a_info)
     {
-        //Debuger.Log(info);
+        //Debug.Log(info);
         if (onControlingAssetEvent != null)
         {
             onControlingAssetEvent(a_info);

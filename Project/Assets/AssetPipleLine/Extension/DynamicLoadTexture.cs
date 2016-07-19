@@ -5,8 +5,8 @@ public class DynamicLoadTexture : MonoBehaviour
 {
     [SerializeField]
     ELanguage mLanguage = ELanguage.Unknown;
-    [SerializeField]
-    UITexture mUITexture;
+    //[SerializeField]
+    //UITexture mUITexture;
     [SerializeField]
     string mTexName = string.Empty;
     [SerializeField]
@@ -16,29 +16,29 @@ public class DynamicLoadTexture : MonoBehaviour
     {
         if (!isAvail())
         {
-            mUITexture.enabled = false;
+         //   mUITexture.enabled = false;
         }
         else
         {
             ResourceManager.loadAsset(mTexName + @".assetbundle", false, false);
             if (!string.IsNullOrEmpty(mMaskTexName))
             {
-                ResourceManager.loadAsset(mMaskTexName + @".assetbundle", false, false);
-                Material tMat = mUITexture.material;
-                if (tMat == null)
-                {
-                    tMat = new Material(Shader.Find("Custom/TransparentColorMask"));
-                    mUITexture.material = tMat;
-                }
-                tMat.SetTexture("_MainTex", ResourceManager.getObject<Texture>(mTexName, mTexName + @".assetbundle"));
-                tMat.SetTexture("_MaskTex", ResourceManager.getObject<Texture>(mMaskTexName, mMaskTexName + @".assetbundle"));
-                ResourceManager.unloadAsset(mMaskTexName + @".assetbundle", true);
+                //ResourceManager.loadAsset(mMaskTexName + @".assetbundle", false, false);
+                //Material tMat = mUITexture.material;
+                //if (tMat == null)
+                //{
+                //    tMat = new Material(Shader.Find("Custom/TransparentColorMask"));
+                   // mUITexture.material = tMat;
+                //}
+                //tMat.SetTexture("_MainTex", ResourceManager.getObject<Texture>(mTexName, mTexName + @".assetbundle"));
+                //tMat.SetTexture("_MaskTex", ResourceManager.getObject<Texture>(mMaskTexName, mMaskTexName + @".assetbundle"));
+                //ResourceManager.unloadAsset(mMaskTexName + @".assetbundle", true);
             }
             else
             {
-                mUITexture.mainTexture = ResourceManager.getObject<Texture>(mTexName, mTexName + @".assetbundle");
+          //      mUITexture.mainTexture = ResourceManager.getObject<Texture>(mTexName, mTexName + @".assetbundle");
             }
-            mUITexture.enabled = true;
+            //mUITexture.enabled = true;
             ResourceManager.unloadAsset(mTexName + @".assetbundle", true);
         }
 	}

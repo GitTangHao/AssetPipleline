@@ -108,7 +108,7 @@ public class PackageConfigData
         {
             if(string.Equals(tFolderInfo.mFolderName, a_folderName))
             {
-                Debuger.LogError(a_folderName + " is already in pack list!");
+                Debug.LogError(a_folderName + " is already in pack list!");
                 return false;
             }
         }
@@ -136,7 +136,7 @@ public class PackageConfigData
         {
             if (string.Equals(tFolderInfo.mFolderName, a_folderName))
             {
-                Debuger.LogError(a_folderName + " is already in pack list!");
+                Debug.LogError(a_folderName + " is already in pack list!");
                 return false;
             }
         }
@@ -191,7 +191,7 @@ public class PackageConfigData
                 return tFolderInfo.mBasePath + tFolderInfo.mFolderName;
             }
         }
-        Debuger.LogError(a_folderName + "can not find in asset pack list!");
+        Debug.LogError(a_folderName + "can not find in asset pack list!");
         return null;
     }
     
@@ -204,7 +204,7 @@ public class PackageConfigData
                 return tFolderInfo.mBasePath + tFolderInfo.mFolderName;
             }
         }
-        Debuger.LogError(a_folderName + "can not find in scene pack list!");
+        Debug.LogError(a_folderName + "can not find in scene pack list!");
         return null;
     }
 

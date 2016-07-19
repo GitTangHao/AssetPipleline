@@ -69,6 +69,17 @@ public class UnityToolKit
         return string.Equals(a_str1, a_str2);
     }
 
+    public static int[] toIntArray(string a_str, char a_split)
+    {
+        string[] tInts = a_str.Split(a_split);
+        int[] tArray = new int[tInts.Length];
+        for (int i = 0, imax = tInts.Length; i < imax ; i++)
+        {
+            int.TryParse(tInts[i], out tArray[i]);
+        }
+        return tArray;
+    }
+
 #if UNITY_EDITOR
     public static void addScriptDefine(string a_scriptDefine, BuildTargetGroup a_buildTargeGroup)
     {

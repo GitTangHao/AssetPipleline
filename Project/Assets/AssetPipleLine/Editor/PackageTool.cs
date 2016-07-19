@@ -465,8 +465,8 @@ public class PackageTool : EditorWindow
 
         if( sBuildApk || sBuildIpa )
         {
-            int[] tVersionCode = Tools.toIntArray(sBuildVersion, '.');
-
+            int[] tVersionCode = UnityToolKit.toIntArray(sBuildVersion, '.');
+			
             if (sBuildVersion.Length == 0 || sBuildVersion.Contains(" ") || tVersionCode.Length != 3)
             {
                 ShowNotification( new GUIContent("Input version number first!") );
@@ -579,7 +579,7 @@ public class PackageTool : EditorWindow
     {
         if (!File.Exists(a_cmdFile))
         {
-            Debuger.LogError("Pack cmd file not found! " + a_cmdFile);
+            Debug.LogError("Pack cmd file not found! " + a_cmdFile);
             return;
         }
 
@@ -720,7 +720,7 @@ public class PackageTool : EditorWindow
             }
             else if( !tFile.EndsWith(".meta"))
             {
-                Debuger.LogError(tFile + " is not supported for packing.");
+                Debug.LogError(tFile + " is not supported for packing.");
             }
         }
         if( a_packageMode == PackageMode.SinglePack && tPackageObjects.Count != 0 )
@@ -934,7 +934,7 @@ public class PackageTool : EditorWindow
             {
                 sBuildVersion = tArgs[i + 1];
                 PlayerSettings.bundleVersion = sBuildVersion;
-                int[] tVersionCode = Tools.toIntArray(sBuildVersion, '.');
+                int[] tVersionCode = UnityToolKit.toIntArray(sBuildVersion, '.');
                 PlayerSettings.Android.bundleVersionCode = tVersionCode[0] * 1000000 + tVersionCode[1] * 1000 + tVersionCode[2];
                 continue;
             }
@@ -1004,7 +1004,7 @@ public class PackageTool : EditorWindow
 
         if (tError.Length != 0)
         {
-            Debuger.LogError(tError);
+            Debug.LogError(tError);
             UnityEditor.EditorApplication.Exit(1);
         }
         AssetDatabase.Refresh();
@@ -1040,7 +1040,7 @@ public class PackageTool : EditorWindow
         string tError = BuildPipeline.BuildPlayer(tScenes.ToArray(), tBuildPath, sBuildTarget, tBuildOption);
         if (tError.Length != 0)
         {
-            Debuger.LogError(tError);
+            Debug.LogError(tError);
         }
         AssetDatabase.Refresh();
     }
@@ -1159,7 +1159,7 @@ public class PackageTool : EditorWindow
                 {
                     if (0 == string.Compare(a_xe.GetAttribute("name"), tPair.Key))
                     {
-                        Debuger.Log(a_xe.GetAttribute("version"));
+                        Debug.Log(a_xe.GetAttribute("version"));
                         tVersion = int.Parse(a_xe.GetAttribute("version"));
                         if (0 != string.Compare(a_xe.GetAttribute("md5"), tPair.Value))
                         {
@@ -1222,7 +1222,7 @@ public class PackageTool : EditorWindow
 
             if ( tMd5List.ContainsKey( tAssetBundleName ) )
             {
-                Debuger.LogError("Asset bundle is not unique. " + tAssetBundleName);
+                Debug.LogError("Asset bundle is not unique. " + tAssetBundleName);
             }
             else
             {
