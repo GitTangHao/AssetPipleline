@@ -281,11 +281,8 @@ public class ResourceManager
             yield break;
         }
         
-        byte[] tXmlBytes = System.Text.Encoding.Default.GetBytes(www.text);
-        Stream tXmlStream = new MemoryStream(tXmlBytes);
         XmlDocument tDoc = new XmlDocument();
-        tDoc.Load(tXmlStream);
-        tXmlStream.Close();
+        tDoc.Load(www.text);
 
         sServerStatue = new ServerSatueInfo();
         sServerStatue.mIsOn = bool.Parse(tDoc.DocumentElement.GetAttribute("IsServerOn"));
@@ -387,7 +384,7 @@ public class ResourceManager
         }
     }
 
-    static void updateLocalAssetInfos( string a_resContent )
+    static void updateLocalAssetInfos(string a_resContent)
     {
         LogInfo(getInfoText("updatelocalReslst"));
         XmlDocument tResDoc = new XmlDocument();
@@ -400,6 +397,8 @@ public class ResourceManager
         {
             sLocalMd5Doc.DocumentElement.SetAttribute("publishversion", sResPublicVersion);
             sLocalMd5Doc.Save(sLocalMd5URL); // do not change excuting order!!!
+
+            List<string> tNewBuildAssets = new List<string>();
             foreach (XmlElement tXeGroup in tResDoc.FirstChild.ChildNodes)
             {
                 foreach (XmlElement tXe in tXeGroup.ChildNodes)
@@ -410,7 +409,25 @@ public class ResourceManager
                     string tMD5 = tXe.GetAttribute("md5");
                     deleteAsset(tAssetName);    //delete old app version asset.
                     updateNewAssetInfo(tAssetName, tMD5, tAssetVersion, tSize);
+                    tNewBuildAssets.Add(tAssetName);
                 }
+            }
+            List<string> tInvalidAssetsInfo = new List<string>();
+            foreach (XmlElement tXeGroup in sLocalMd5Doc.FirstChild.ChildNodes)
+            {
+                foreach (XmlElement tXe in tXeGroup.ChildNodes)
+                {
+                    string tAssetName = tXe.GetAttribute("name");
+                    if (!tNewBuildAssets.Contains(tAssetName) && !File.Exists(Application.persistentDataPath + @"/" + tAssetName))
+                    {
+                        tInvalidAssetsInfo.Add(tAssetName);
+                        Debug.Log("Invalid " + tAssetName);
+                    }
+                }
+            }
+            foreach (string tAsset in tInvalidAssetsInfo)
+            {
+                deleteAsset(tAsset);
             }
         }
     }
@@ -453,12 +470,8 @@ public class ResourceManager
 
     static void removeAssetInfo( string a_assetName )
     {
-        string tXmlContent = System.IO.File.ReadAllText(sLocalMd5URL);
-        XmlDocument tDoc = new XmlDocument();
-        tDoc.LoadXml(tXmlContent);
-
         XmlElement tChildToRemove = null;
-        foreach (XmlElement tXeGroup in tDoc.FirstChild.ChildNodes)
+        foreach (XmlElement tXeGroup in sLocalMd5Doc.FirstChild.ChildNodes)
         {
             foreach (XmlElement tXe in tXeGroup.ChildNodes)
             {
@@ -475,7 +488,7 @@ public class ResourceManager
                 break;
             }
         }
-        tDoc.Save(sLocalMd5URL);
+        sLocalMd5Doc.Save(sLocalMd5URL);
     }
 
     public static IEnumerator loadServerAssetInfo()
