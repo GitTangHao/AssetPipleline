@@ -228,7 +228,7 @@ public class ResourceManager
             TextAsset tTextAsset = null;
             if (GlobleDefine.Language == ELanguage.English)
             {
-                tTextAsset = Resources.Load<TextAsset>("InfoTextEn");
+                tTextAsset = Resources.Load<TextAsset>("InfoTextEN");
             }
 			else if(GlobleDefine.Language == ELanguage.TraditionalChinese)
 			{
@@ -236,7 +236,7 @@ public class ResourceManager
 			}
             else
             {
-                tTextAsset = Resources.Load<TextAsset>("InfoTextCn");
+                tTextAsset = Resources.Load<TextAsset>("InfoTextCN");
             }
             sInfoText = new XmlDocument();
             sInfoText.LoadXml(tTextAsset.text);
@@ -707,7 +707,7 @@ public class ResourceManager
                     onErrorDelegate(EResourceErrorCode.DownloadAssetError, getInfoText("downloadAssetError") + "Failed to validate asset.");
                 }
                 tFileStream.Close();
-                File.Delete(Application.persistentDataPath + @"/tmp_" + a_assetName[i]);
+                File.Delete(Application.persistentDataPath + @"/" + a_assetName[i]);
                 yield break;
             }
 
@@ -719,6 +719,58 @@ public class ResourceManager
         sLocalMd5Doc.Save(sLocalMd5URL);
 
         sPerPublicVersion = sSerPublicVersion;
+    }
+
+    public static IEnumerator downloadAsset(string a_url, string a_md5)
+    {
+        sTotalBytesToDownload = 0;
+        sTotalBytesDownloaded = 0;
+
+        string tAssetName = a_url.Substring(a_url.LastIndexOfAny(new char[] { '/', '\\' }) + 1);
+
+        TimeoutWebClient tWebClient = new TimeoutWebClient(20000);
+        tWebClient.DownloadDataCompleted += downloadDataCompletedHandler;
+        tWebClient.DownloadProgressChanged += downloadProgressChangedHandler;
+
+        LogInfo(getInfoText("download") + tAssetName);
+
+        FileStream tFileStream = new FileStream(Application.persistentDataPath + @"/tmp_" + tAssetName, FileMode.Create, FileAccess.ReadWrite, FileShare.Read | FileShare.Delete);
+        tWebClient.DownloadDataAsync(new System.Uri(a_url), tFileStream);
+
+        while (tFileStream.Length <= 0)
+        {
+            if (sDownloadException != null)
+            {
+                tFileStream.Close();
+                tWebClient.CancelAsync();
+                if (onErrorDelegate != null)
+                {
+                    onErrorDelegate(EResourceErrorCode.DownloadAssetError, getInfoText("downloadAssetError") + sDownloadException.Message);
+                }
+                sDownloadException = null;
+                yield break;
+            }
+            yield return null;
+        }
+        tFileStream.Flush();
+        long tAssetSize = tFileStream.Length;
+        tFileStream.Close();
+
+        File.Delete(Application.persistentDataPath + @"/" + tAssetName);
+        File.Move(Application.persistentDataPath + @"/tmp_" + tAssetName, Application.persistentDataPath + @"/" + tAssetName);
+
+        tFileStream = new FileStream(Application.persistentDataPath + @"/" + tAssetName, FileMode.Open, FileAccess.Read);
+        if (false && !UnityToolKit.quickStringEqual(a_md5, System.BitConverter.ToString(sMd5Provider.ComputeHash(tFileStream))))   //check md5  note:save the file to disk first then check it.
+        {
+            if (onErrorDelegate != null)
+            {
+                onErrorDelegate(EResourceErrorCode.DownloadAssetError, getInfoText("downloadAssetError") + "Failed to validate asset.");
+            }
+            tFileStream.Close();
+            File.Delete(Application.persistentDataPath + @"/" + tAssetName);
+            yield break;
+        }
+        tFileStream.Close();
     }
 
     static void downloadDataCompletedHandler(object sender, DownloadDataCompletedEventArgs e)
@@ -735,6 +787,10 @@ public class ResourceManager
 
     static void downloadProgressChangedHandler(object sender, DownloadProgressChangedEventArgs e)
     {
+        if (sTotalBytesToDownload == 0)
+        {
+            sTotalBytesToDownload += e.TotalBytesToReceive;
+        }
         sTotalBytesDownloaded += e.BytesReceived;
     }
 
@@ -753,8 +809,14 @@ public class ResourceManager
             }
             return false;
         }
-        Debug.LogWarning(a_assetName + " is not on server.");
-        return true;
+        return File.Exists(Application.persistentDataPath + @"/" + a_assetName);
+#endif
+    }
+
+    public static void installApk(string a_apkName)
+    {
+#if UNITY_ANDROID
+        sAndroidJavaObject.Call("installApk", Application.persistentDataPath + @"/" + a_apkName);
 #endif
     }
 

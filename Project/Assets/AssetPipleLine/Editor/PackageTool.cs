@@ -544,7 +544,7 @@ public class PackageTool : EditorWindow
     {
         if (sAssetServerSelected >= 0 && sAssetServerSelected < sAssetServerList.Count)
         {
-            AssetDatabase.DeleteAsset(@"Assets/Resources/AssetServer.xml");
+            AssetDatabase.DeleteAsset(@"Assets/AssetPipleLine/Resources/AssetServer.xml");
 
             XmlDocument tDoc = new XmlDocument();
             XmlElement tRoot = tDoc.CreateElement("AssetServer");
@@ -557,7 +557,7 @@ public class PackageTool : EditorWindow
             XmlElement tUrl = tDoc.CreateElement("url");
             tUrl.SetAttribute("value", sAssetServerList[sServersPopup[sAssetServerSelected].text]);
             tRoot.AppendChild(tUrl);
-            tDoc.Save(Application.dataPath + @"/Resources/AssetServer.xml");
+            tDoc.Save(Application.dataPath + @"/AssetPipleLine/Resources/AssetServer.xml");
             AssetDatabase.Refresh();
         }
     }
