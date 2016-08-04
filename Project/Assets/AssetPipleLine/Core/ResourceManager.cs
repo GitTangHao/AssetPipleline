@@ -257,6 +257,7 @@ public class ResourceManager
         {
             File.Delete(tCachedBundle);
         }
+        Caching.CleanCache();
     }
 
     public static ServerSatueInfo getServerStatue()
